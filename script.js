@@ -4,7 +4,6 @@ const btnContainer = document.getElementById('botones-container');
 const rep = document.getElementById('reproductor');
 let etapa = 1;
 
-// Playlist completa integrada
 const playlist = [
     { nombre: "TILL YOU TELL ME TO LEAVE - TV GIRL", src: "songs/song1.mp3" },
     { nombre: "HEAVEN IS A BEDROOM - TV GIRL", src: "songs/song2.mp3" },
@@ -37,19 +36,21 @@ async function cambiarTexto(nuevoTexto) {
 input.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         const val = input.value.trim().toUpperCase();
-        if (etapa === 1 && val === "MWW") {
-            cambiarTexto("¿POR QUÉ NOS CONOCIMOS?"); etapa = 2;
-        } else if (etapa === 2 && val === "TV GIRL") {
-            cambiarTexto("20-5-1-13-15-19-1-18-1"); etapa = 3;
-        } else if (etapa === 3 && val === "TE AMO SARA") {
+        if (etapa === 1 && val === "MWW") { cambiarTexto("¿POR QUÉ NOS CONOCIMOS?"); etapa = 2; }
+        else if (etapa === 2 && val === "TV GIRL") { cambiarTexto("Resuelve esto: 20-5-1-13-15-19-1-18-1"); etapa = 3; }
+        else if (etapa === 3 && val === "TE AMO SARA") { cambiarTexto("¿CUÁL ES NUESTRO MES?"); etapa = 4; }
+        else if (etapa === 4 && val === "JUNIO") { cambiarTexto("¿ME AMAS?"); etapa = 5; }
+        else if (etapa === 5 && val === "SI") {
             input.style.display = 'none';
             iniciarConfesion();
         } else {
-            let p = "ERROR.";
-            if (etapa === 1) p = "PISTA: INICIALES 'MY WHOLE WORLD'";
-            else if (etapa === 2) p = "PISTA: NUESTRA BANDA FAVORITA";
-            else if (etapa === 3) p = "PISTA: A=1, B=2, C=3 (NUMÉRICO)";
-            cambiarTexto(p);
+            let pista = "ERROR. ";
+            if (etapa === 1) pista += "PISTA: INICIALES 'MY WHOLE WORLD'";
+            else if (etapa === 2) pista += "PISTA: NUESTRA BANDA FAVORITA";
+            else if (etapa === 3) pista += "PISTA: A=1, B=2, C=3 (NUMÉRICO)";
+            else if (etapa === 4) pista += "PISTA: EL MES QUE INICIAMOS";
+            else if (etapa === 5) pista += "PISTA: RESPONDE 'SI'";
+            cambiarTexto(pista);
         }
         input.value = '';
     }
@@ -61,13 +62,22 @@ async function iniciarConfesion() {
         await cambiarTexto(f);
         await new Promise(r => setTimeout(r, 2500));
     }
-    btnContainer.innerHTML = '<button onclick="iniciarRep()">SÍ</button><button onclick="alert(\'Inténtalo de nuevo, jaja\')">NO</button>';
+    btnContainer.innerHTML = '<button onclick="mensajeSi()">SÍ</button><button onclick="alert(\'Inténtalo de nuevo JSAJSA\')">NO</button>';
+    setTimeout(() => { btnContainer.style.opacity = '1'; }, 100);
+}
+
+function mensajeSi() {
+    cambiarTexto("¡Sabía que dirías que sí! Eres mi persona favorita en el mundo, gracias por hacerme tan feliz. ❤️");
+    btnContainer.style.opacity = '0';
+    setTimeout(() => {
+        btnContainer.innerHTML = '<button onclick="iniciarRep()">Prepare esta playlist :D</button>';
+        btnContainer.style.opacity = '1';
+    }, 1000);
 }
 
 function iniciarRep() {
     btnContainer.style.opacity = '0';
-    texto.style.display = 'none'; 
-    
+    texto.style.display = 'none';
     setTimeout(() => {
         btnContainer.style.display = 'none';
         rep.style.display = 'block';
