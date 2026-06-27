@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sara :0</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <p id="prompt-text">DECIFRA EL CÓDIGO: -- / .-- / .--</p>
+        <input type="text" id="user-input" autofocus autocomplete="off">
+        
+        <div id="botones-container"></div>
+
+        <div id="reproductor" style="display:none;">
+            <p id="header-text">Canciones que te dedico</p>
+            <img src="images/1.png" id="cassette-img" alt="cassette">
+            <p id="track-name"></p>
+            <div class="controls">
+                <button onclick="cambiarCancion(-1)">«</button>
+                <button onclick="toggleAudio()" id="btn-play">PLAY/PAUSA</button>
+                <button onclick="cambiarCancion(1)">»</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
